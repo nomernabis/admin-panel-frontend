@@ -1,12 +1,12 @@
 import React, { Component } from "react"
-
+import Login from './Login'
 import "../styles/App.css"
 
 class App extends Component{
     render() {
         return (
             <div>
-                <h1>My React App!</h1>
+                <Login/>
             </div>
         )
     }

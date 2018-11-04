@@ -1,0 +1,10 @@
+html, body{
+    margin: 0;
+}
+.flex {
+    display: flex;
+}
+.flex-center{
+    justify-content: center;
+    align-items: center;
+}
