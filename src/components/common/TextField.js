@@ -32,7 +32,7 @@ class TextField extends Component{
         return this.state.error
     }
     validate(){
-        const { min, max, isRequired, name} = this.props
+        const { min, max, isRequired, name } = this.props
         const { value } = this.state
         var error = null
         if(isRequired && value === ""){

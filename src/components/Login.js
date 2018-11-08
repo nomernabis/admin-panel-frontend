@@ -15,7 +15,9 @@ class Login extends Component{
     }
     componentDidMount(){
         const { token } = this.props
-        console.log('token', token)
+        if(token){
+            //redirect
+        }
     }
     clearError(){
         this.props.dispatch(clearError())
@@ -28,7 +30,7 @@ class Login extends Component{
         if(isUsernameValid && isPasswordValid){
             //send request
             const username = this.refs.username.getValue()
-            const password = this.refs.username.getValue()
+            const password = this.refs.password.getValue()
             dispatch(fetchLogin({ username, password }))
         }
     }
@@ -38,8 +40,8 @@ class Login extends Component{
             <div className="login-page flex flex-center flex-col">
                 <div>{ error }</div>
                 <div>
-                    <TextField error={error != null} ref="username" min={7} max={20} name="username" label="Login" clearError={this.clearError}  isRequired />
-                    <TextField error={error != null} ref="password" min={7} max={20} name="password" type="password" clearError={this.clearError} label="Password" isRequired />
+                    <TextField error={error != null} ref="username" min={5} max={20} name="username" label="Login" clearError={this.clearError}  isRequired />
+                    <TextField error={error != null} ref="password" min={5} max={20} name="password" type="password" clearError={this.clearError} label="Password" isRequired />
                     <button onClick={this.handleSubmit} className="login-button">Login</button>
                 </div>
             </div>
