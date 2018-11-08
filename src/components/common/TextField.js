@@ -14,10 +14,14 @@ class TextField extends Component{
         this.validate = this.validate.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.getValue = this.getValue.bind(this)
+        this.getError = this.getError.bind(this)
     }
     handleChange(e){
         if(this.state.error){
             this.setState({error: null})
+        }
+        if(this.props.error){
+            this.props.clearError()
         }
         this.setState({value: e.target.value})
     }
@@ -30,7 +34,7 @@ class TextField extends Component{
     validate(){
         const { min, max, isRequired, name} = this.props
         const { value } = this.state
-        var error = ""
+        var error = null
         if(isRequired && value === ""){
             error = name + " is required"
         } else if(value.length < min){
@@ -39,6 +43,7 @@ class TextField extends Component{
             error = name + " has to be less than " + max + " characters"
         }
         this.setState({ error })
+        return error == null
     }
     render(){
        const { name, label, type} = this.props

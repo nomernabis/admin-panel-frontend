@@ -21,6 +21,11 @@ export const loginError = (error) => ({
     error
 })
 
+export const LOGIN_CLEAR_ERROR = "LOGIN_CLEAR_ERROR"
+export const clearError = () => ({
+    type: LOGIN_CLEAR_ERROR
+})
+
 export const fetchLogin = (credentials) => {
     const { username, password } = credentials
     return function(dispatch){
@@ -30,7 +35,11 @@ export const fetchLogin = (credentials) => {
         .then(json => {
             console.log('response', json)
             if(json.status){
-                dispatch(loginSuccess(json.data))
+                if(json.data.non_field_errors){
+                    dispatch(loginError(json.data.non_field_errors[0]))
+                } else {
+                    dispatch(loginSuccess(json.data.token))
+                }
             } else {
                 dispatch(loginError(json.data))
             }

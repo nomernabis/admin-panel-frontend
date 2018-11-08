@@ -5,22 +5,27 @@ import "../styles/common.css"
 import "../styles/Login.css"
 import TextField from './common/TextField'
 import { fetchLogin } from '../actions'
+import { clearError } from '../actions'
 
 class Login extends Component{
     constructor(props){
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.clearError = this.clearError.bind(this)
     }
     componentDidMount(){
         const { token } = this.props
         console.log('token', token)
     }
+    clearError(){
+        this.props.dispatch(clearError())
+    }
     handleSubmit(e){
         e.preventDefault()
-        this.refs.username.validate()
-        this.refs.password.validate()
         const { dispatch } = this.props
-        if(!this.refs.username.getError() && !this.refs.password.getError()){
+        const isUsernameValid = this.refs.username.validate()
+        const isPasswordValid = this.refs.password.validate()
+        if(isUsernameValid && isPasswordValid){
             //send request
             const username = this.refs.username.getValue()
             const password = this.refs.username.getValue()
@@ -28,11 +33,13 @@ class Login extends Component{
         }
     }
     render(){
+        const { error } = this.props
         return (
-            <div className="login-page flex flex-center">
+            <div className="login-page flex flex-center flex-col">
+                <div>{ error }</div>
                 <div>
-                    <TextField ref="username" min={7} max={20} name="username" label="Login"  isRequired />
-                    <TextField ref="password" min={7} max={20} name="password" type="password"  label="Password" isRequired />
+                    <TextField error={error != null} ref="username" min={7} max={20} name="username" label="Login" clearError={this.clearError}  isRequired />
+                    <TextField error={error != null} ref="password" min={7} max={20} name="password" type="password" clearError={this.clearError} label="Password" isRequired />
                     <button onClick={this.handleSubmit} className="login-button">Login</button>
                 </div>
             </div>
@@ -41,7 +48,8 @@ class Login extends Component{
 }
 
 const mapStateToProps = (state) => ({
-    token: state.token
+    token: state.token,
+    error: state.error
 })
 
 export default connect(mapStateToProps, null)(Login)
