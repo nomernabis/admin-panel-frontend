@@ -6,18 +6,13 @@ import "../styles/Login.css"
 import TextField from './common/TextField'
 import { fetchLogin } from '../actions'
 import { clearError } from '../actions'
+import { Redirect, withRouter } from 'react-router-dom'
 
 class Login extends Component{
     constructor(props){
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.clearError = this.clearError.bind(this)
-    }
-    componentDidMount(){
-        const { token } = this.props
-        if(token){
-            //redirect
-        }
     }
     clearError(){
         this.props.dispatch(clearError())
@@ -35,6 +30,10 @@ class Login extends Component{
         }
     }
     render(){
+        if(this.props.token){
+            localStorage.setItem('token', this.props.token)
+            return (<Redirect to="/" />)
+        }
         const { error } = this.props
         return (
             <div className="login-page flex flex-center flex-col">
@@ -49,9 +48,12 @@ class Login extends Component{
     }
 }
 
-const mapStateToProps = (state) => ({
-    token: state.token,
-    error: state.error
-})
+const mapStateToProps = (state) => {
+    console.log('state changed', state)
+    return {
+        token: state.token,
+        error: state.error
+    }
+}
 
-export default connect(mapStateToProps, null)(Login)
+export default withRouter(connect(mapStateToProps, null)(Login))
