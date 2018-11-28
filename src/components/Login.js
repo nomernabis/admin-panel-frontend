@@ -48,12 +48,9 @@ class Login extends Component{
     }
 }
 
-const mapStateToProps = (state) => {
-    console.log('state changed', state)
-    return {
+const mapStateToProps = (state) => ({
         token: state.token,
         error: state.error
-    }
-}
+})
 
 export default withRouter(connect(mapStateToProps, null)(Login))

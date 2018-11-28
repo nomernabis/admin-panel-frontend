@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { isEmailValid, isEmpty } from '../../utils'
 
 import '../../styles/common.css'
 
@@ -32,15 +33,23 @@ class TextField extends Component{
         return this.state.error
     }
     validate(){
-        const { min, max, isRequired, name } = this.props
+        const { min, max, isRequired, name, type } = this.props
         const { value } = this.state
         var error = null
         if(isRequired && value === ""){
             error = name + " is required"
-        } else if(value.length < min){
+        } else if(value.length < min && !isEmpty(value)){
             error = name + " has to be at least " + min + " characters"
         } else if(value.length > max){
             error = name + " has to be less than " + max + " characters"
+        } else if(type == 'email'){
+            if(!isEmpty(value)){
+                const valid = isEmailValid(value)
+                console.log('email', valid)
+                if(!isEmailValid(value)){
+                    error = "Email is not valid"
+                }
+            }
         }
         this.setState({ error })
         return error == null

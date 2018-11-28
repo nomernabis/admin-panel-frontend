@@ -8,6 +8,9 @@ html, body{
     justify-content: center;
     align-items: center;
 }
+.flex-center-horizontal{
+    justify-content: center;
+}
 .flex-col{
     flex-direction: column;
 }
@@ -26,4 +29,39 @@ html, body{
 }
 .has-error{
     border-color: red;
+}
+.table{
+    display: table;
+    margin-top: 32px;
+}
+.table-row{
+    display: table-row;
+}
+.table-cell{
+    display: table-cell;
+}
+.table-row > div {
+    display: table-cell;
+    padding: 3px 10px;
+    border:  1px solid black;
+    border-top: 0;
+    border-left: 0;
+}
+.table-header{
+    display: table-header-group;
+    background-color: #ddd;
+}
+.table-header > div {
+    display: table-cell;
+    padding: 3px 10px;
+    border:  1px solid black;
+    border-left: 0;
+}
+.table-header > :first-child, .table-row > :first-child{
+    border-left: 1px;
+    border-left-color: black;
+    border-left-style: solid;
+}
+.table-button{
+    margin-top: 16px;
 }
