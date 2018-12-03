@@ -38,6 +38,16 @@ export const isEmailValid = (email) => {
     }
 }
 
+export function formate(str){
+    return str.replace('(', '').replace(')', '').replace(/ /g, '')
+}
+
+export function maskPhone(str){
+    var first = str.substr(0, 3)
+    var second = str.substr(3, 3)
+    var third = str.substr(6, 4)
+    return "(" + first + ") " + second + " " + third
+}
 
 export const post = (url, data) => {
     return fetch(url, {
@@ -59,4 +69,17 @@ export const get = (url, isAuthorized=false) => {
         })
     }
     return fetch(url)
+}
+
+export const USERS = 'http://localhost:8000/users/'
+export const put = (url, data) => {
+    return fetch(url, {
+        method: "PUT",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": "Token " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify(data)
+    })
 }

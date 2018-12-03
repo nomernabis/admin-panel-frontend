@@ -1,4 +1,4 @@
-import { get } from '../utils'
+import { get, post, put, USERS } from '../utils'
 
 export const USER_REQUEST = 'USER_REQUEST'
 export const userRequest = ({
@@ -78,9 +78,41 @@ export const addUserError = ({
 })
 //username, password, first_name, last_name, email, phone_number, user_type
 export const fetchAddUser = (data) => dispatch => {
-    return post('http://localhost:8000/users', data)
+    return post('http://localhost:8000/users/', data)
     .then(response => response.json())
     .then(data => {
         dispatch(addUserSuccess(data))
+    })
+}
+
+export const EDIT_USER_REQUEST = 'EDIT_USER_REQUEST'
+export const editUserRequest = () => ({
+    type: EDIT_USER_REQUEST,
+    isFetching: true
+})
+
+export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS'
+export const editUserSuccess = (response) => ({
+    type: EDIT_USER_SUCCESS,
+    isFetching: false,
+    response
+})
+
+export const EDIT_USER_ERROR = 'EDIT_USER_ERROR'
+export const editUserError = (error) => ({
+    type: EDIT_USER_ERROR,
+    isFetching: false,
+    error
+})
+
+export const fetchEditUser = (id, data) => dispatch => {
+    return put(USERS + id + '/', data)
+    .then(response => response.json().then(json => ({status: response.status, data: json})))
+    .then(response => {
+        if(response.status){
+            dispatch(editUserSuccess(response.data))
+        } else {
+            dispatch(editUserError(response.data))
+        }
     })
 }

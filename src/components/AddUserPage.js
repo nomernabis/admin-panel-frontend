@@ -8,7 +8,7 @@ class AddUserPage extends Component{
     render(){
         return (
             <div className="login-page flex flex-center flex-col">
-                <UserForm />
+                <UserForm {...this.props}/>
             </div>
         )
     }

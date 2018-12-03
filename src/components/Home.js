@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+
 import { fetchUsers } from '../actions'
 import User from './User'
 
@@ -16,7 +18,7 @@ class Home extends Component{
                 <div>Loading...</div>
             )
         }
-        const users = this.props.users.map(user => <User {...user} />)
+        const users = this.props.users.map(user => <User key={user.id} user={user} />)
         return(
             <div className="flex flex-center-horizontal">
                 <div className="table">
@@ -45,7 +47,7 @@ class Home extends Component{
                     </div>
                     {users}
                     <div className="table-button">
-                        <button>Add</button>
+                        <button onClick={() => this.props.history.push('/users/add')}>Add</button>
                     </div>
                 </div>
             </div>
@@ -58,4 +60,4 @@ const mapStateToProps = (state) => ({
     isFetching: state.user.isFetching
 })
 
-export default connect(mapStateToProps, null)(Home)
+export default withRouter(connect(mapStateToProps, null)(Home))

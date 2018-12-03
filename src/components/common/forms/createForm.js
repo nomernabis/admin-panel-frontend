@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Form from './Form'
 
-function createForm(config){
+function createForm(config, actions){
     return class extends Component{
             constructor(props){
                 super(props)
@@ -9,7 +9,7 @@ function createForm(config){
 
         render(){
             return(
-                <Form {...this.props} config={config} />
+                <Form {...this.props} config={config} actions={actions} />
             )
         }
     }

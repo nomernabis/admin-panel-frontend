@@ -26,7 +26,6 @@ export const clearError = () => ({
 })
 
 
-
 export const fetchLogin = (credentials) => {
     const { username, password } = credentials
     return function(dispatch){
@@ -34,7 +33,6 @@ export const fetchLogin = (credentials) => {
         return post("http://localhost:8000/auth/", {username, password})
         .then(response => response.json().then(data => ({status: response.status, data})))
         .then(json => {
-            console.log('response', json)
             if(json.status){
                 if(json.data.non_field_errors){
                     dispatch(loginError(json.data.non_field_errors[0]))

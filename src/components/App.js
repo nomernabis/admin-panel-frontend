@@ -14,14 +14,13 @@ const store = configureStore()
 
 class App extends Component{
     render() {
-        console.log('form', typeof Form)
-
         return (
             <Provider store={store}>
                 <BrowserRouter>
                     <Switch>
                         <Route path="/login" component={Login} />
                         <ProtectedRoute path="/users/add" component={AddUserPage} />
+                        <ProtectedRoute path="/users/edit/:id" component={(props) => <AddUserPage {...props} edit={true} />} />
                         <ProtectedRoute path="/" component={Home} />
                     </Switch>
                 </BrowserRouter>
