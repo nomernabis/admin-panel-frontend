@@ -65,3 +65,18 @@ html, body{
 .table-button{
     margin-top: 16px;
 }
+.m-t-16{
+    margin-top: 16px;
+}
+.m-b-16{
+    margin-bottom: 16px;
+}
+.m-r-8{
+    margin-right: 8px;
+}
+.display{
+    display: block;
+}
+.display-none{
+    display: none;
+}

@@ -10,12 +10,11 @@ class User extends Component{
     handleEditClick(e){
         e.preventDefault()
         const { history, user } = this.props
-        console.log('user', user)
         localStorage.setItem('/users/' + user.id, JSON.stringify(user))
         history.push('/users/edit/' + user.id)
     }
     handleDeleteClick(e){
-        e.preventDefault()
+        this.props.deleteClicked()
     }
     render(){
         const {username, first_name, last_name, email, phone_number, user_type} = this.props.user
