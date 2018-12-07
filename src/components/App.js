@@ -6,7 +6,7 @@ import configureStore from '../configureStore'
 import Login from './Login'
 import Home from './Home'
 import ProtectedRoute from './common/ProtectedRoute'
-import AddUserPage from './AddUserPage'
+import UserFormPage from './UserFormPage'
 
 import "../styles/App.css"
 
@@ -19,8 +19,8 @@ class App extends Component{
                 <BrowserRouter>
                     <Switch>
                         <Route path="/login" component={Login} />
-                        <ProtectedRoute path="/users/add" component={AddUserPage} />
-                        <ProtectedRoute path="/users/edit/:id" component={(props) => <AddUserPage {...props} edit={true} />} />
+                        <ProtectedRoute path="/users/add" component={UserFormPage} />
+                        <ProtectedRoute path="/users/edit/:id" component={(props) => <UserFormPage {...props} method='put' />} />
                         <ProtectedRoute path="/" component={Home} />
                     </Switch>
                 </BrowserRouter>

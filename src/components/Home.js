@@ -2,28 +2,16 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 
-import { fetchUsers } from '../actions'
+import { fetchUsers, showModal, hideModal } from '../actions'
 import User from './User'
 import Modal from './Modal'
 
 class Home extends Component{
     constructor(props){
         super(props)
-        this.state = {
-            showModal: false
-        }
-        this.showModal = this.showModal.bind(this)
-        this.hideModal = this.hideModal.bind(this)
     }
     componentDidMount(){
-        this.props.dispatch(fetchUsers())
-    }
-    showModal(){
-        console.log('show modal')
-        this.setState({showModal: true})
-    }
-    hideModal(){
-        this.setState({showModal: false})
+        this.props.getUsers()
     }
     render(){
         if(this.props.isFetching){
@@ -31,7 +19,7 @@ class Home extends Component{
                 <div>Loading...</div>
             )
         }
-        const users = this.props.users.map(user => <User key={user.id} user={user} deleteClicked={() => this.showModal()} hideModal={this.hideModal} />)
+        const users = this.props.users.map(user => <User key={user.id} user={user} showModal={(confirmAction) => this.props.showModal(confirmAction)} hideModal={() => this.props.hideModal} />)
         return(
             <div className="flex flex-center-horizontal">
                 <div className="table">
@@ -63,7 +51,7 @@ class Home extends Component{
                         <button onClick={() => this.props.history.push('/users/add')}>Add</button>
                     </div>
                 </div>
-                <Modal show={this.state.showModal} hideModal={this.hideModal} />
+                <Modal />
             </div>
         )
     }
@@ -71,7 +59,13 @@ class Home extends Component{
 
 const mapStateToProps = (state) => ({
     users: state.user.items,
-    isFetching: state.user.isFetching
+    isFetching: state.user.isFetching,
 })
 
-export default withRouter(connect(mapStateToProps, null)(Home))
+const mapDispatchToProps = (dispatch) => ({
+    showModal: (confirmAction) => dispatch(showModal(confirmAction)),
+    hideModal: () => dispatch(hideModal()),
+    getUsers: () => dispatch(fetchUsers())
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home))

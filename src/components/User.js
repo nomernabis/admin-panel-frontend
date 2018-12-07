@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { fetchDeleteUser } from '../actions'
 
 class User extends Component{
     constructor(props){
         super(props)
         this.handleEditClick = this.handleEditClick.bind(this)
         this.handleDeleteClick = this.handleDeleteClick.bind(this)
+        this.confirmAction = this.confirmAction.bind(this)
     }
     handleEditClick(e){
         e.preventDefault()
@@ -14,7 +17,12 @@ class User extends Component{
         history.push('/users/edit/' + user.id)
     }
     handleDeleteClick(e){
-        this.props.deleteClicked()
+        this.props.showModal(this.confirmAction)
+    }
+    confirmAction(){
+        console.log('confirmAction clicked', this.props)
+        const { dispatch, user} = this.props
+        dispatch(fetchDeleteUser(user.id))
     }
     render(){
         const {username, first_name, last_name, email, phone_number, user_type} = this.props.user
@@ -35,4 +43,4 @@ class User extends Component{
     }
 }
 
-export default withRouter(User)
+export default withRouter(connect()(User))

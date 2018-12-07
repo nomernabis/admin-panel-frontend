@@ -4,10 +4,18 @@ import {
     USER_ERROR,
     USERS_REQUEST,
     USERS_SUCCESS,
-    USERS_ERROR
+    USERS_ERROR,
+    DELETE_USER_REQUEST,
+    DELETE_USER_SUCCESS,
+    DELETE_USER_ERROR,
+    USERS_UPDATED,
+    DELETE_USER_CLEAR_STATUS
 } from '../actions'
 
-function user(state={items:[], isFetching: false}, action){
+function user(state={items:[], isFetching: false, deleteUser: {
+    isFetching: false,
+    status: 0
+}, shouldUpdateUsers: false}, action){
     switch(action.type){
         case USER_REQUEST:
             return Object.assign({}, state, {
@@ -31,7 +39,39 @@ function user(state={items:[], isFetching: false}, action){
         case USERS_SUCCESS:
             return Object.assign({}, state, {
                 items: action.items,
-                isFetching: action.isFetching
+                isFetching: action.isFetching,
+                shouldUpdateUsers: false
+            })
+        case USERS_UPDATED:
+            return Object.assign({}, state, {
+                shouldUpdateUsers: false
+            })
+        case DELETE_USER_REQUEST:
+            return Object.assign({}, state, {
+                deleteUser: {
+                    isFetching: action.isFetching
+                }
+            })
+        case DELETE_USER_SUCCESS:
+            return Object.assign({}, state, {
+                deleteUser: {
+                    isFetching: false,
+                    status: action.status
+                },
+                shouldUpdateUsers: true
+            })
+        case DELETE_USER_ERROR:
+            return Object.assign({}, state, {
+                deleteUser: {
+                    isFetching: false,
+                    status: action.status
+                }
+            })
+        case DELETE_USER_CLEAR_STATUS:
+            return Object.assign({}, state, {
+                deleteUser: {
+                    status: action.status
+                }
             })
         default:
             return state

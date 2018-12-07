@@ -1,5 +1,17 @@
 import fetch from 'cross-fetch'
 
+export const normalizeConfig = (config) => {
+    var newFields = config.fields.map(f => {
+        if(!f.methods){
+            f.methods = ['post', 'put']
+        }
+        return f
+    })
+    console.log('normailize', newFields)
+    config.fields = newFields
+    return config
+}
+
 export const isEmpty = (str) => {
     return str === ""
 }
@@ -81,5 +93,14 @@ export const put = (url, data) => {
             "Authorization": "Token " + localStorage.getItem("token"),
         },
         body: JSON.stringify(data)
+    })
+}
+
+export const delete_ = (url, id) => {
+    return fetch(url + id + '/', {
+        method: "DELETE",
+        headers: {
+            "Authorization": "Token " + localStorage.getItem("token"),
+        },
     })
 }

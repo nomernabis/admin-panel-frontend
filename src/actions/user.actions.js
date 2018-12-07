@@ -1,4 +1,4 @@
-import { get, post, put, USERS } from '../utils'
+import { get, post, put, delete_, USERS } from '../utils'
 
 export const USER_REQUEST = 'USER_REQUEST'
 export const userRequest = ({
@@ -113,6 +113,50 @@ export const fetchEditUser = (id, data) => dispatch => {
             dispatch(editUserSuccess(response.data))
         } else {
             dispatch(editUserError(response.data))
+        }
+    })
+}
+
+export const DELETE_USER_REQUEST = 'DELETE_USER_REQUEST'
+export const deleteUserRequest = () => ({
+    type: DELETE_USER_REQUEST,
+    isFetching: true
+})
+
+export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS'
+export const deleteUserSuccess = () => ({
+    type: DELETE_USER_SUCCESS,
+    isFetching: false,
+    status: 1
+})
+
+export const DELETE_USER_ERROR = 'DELETE_USER_ERROR'
+export const deleteUserError = (error) => ({
+    type: DELETE_USER_ERROR,
+    isFetching: false,
+    status: 2
+})
+
+
+export const USERS_UPDATED = 'USERS_UPDATED'
+export const usersUpdated = () => ({
+    type: USERS_UPDATED
+})
+
+export const DELETE_USER_CLEAR_STATUS = 'DELETE_USER_CLEAR_STATUS'
+export const deleteUserClearStatus = () => ({
+    type: DELETE_USER_CLEAR_STATUS,
+    status: 0
+})
+
+export const fetchDeleteUser = id => dispatch => {
+    dispatch(deleteUserRequest())
+    return delete_(USERS, id)
+    .then(response => {
+        if(response.status){
+            dispatch(deleteUserSuccess())
+        } else {
+            dispatch(deleteUserError())
         }
     })
 }

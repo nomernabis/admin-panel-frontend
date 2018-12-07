@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import Form from './Form'
 
 function createForm(config, actions){
@@ -9,7 +10,11 @@ function createForm(config, actions){
 
         render(){
             return(
-                <Form {...this.props} config={config} actions={actions} />
+                <Form
+                    config={config}
+                    actions={actions}
+                    {...this.props}
+                 />
             )
         }
     }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import TextField from '../TextField'
 import { connect } from 'react-redux'
 
@@ -13,16 +14,18 @@ class Form extends Component{
         var isValid = true
         var data = {}
         this.props.config.fields.forEach(function(f){
-            isValid = self.refs[f.name].validate() && isValid
-            if(isValid){
-                data[f.name] = self.refs[f.name].getValue()
+            if(f.methods.indexOf(this.props.method) != -1){
+                isValid = self.refs[f.name].validate() && isValid
+                if(isValid){
+                    data[f.name] = self.refs[f.name].getValue()
+                }
             }
         })
         if(isValid){
-            if(this.props.edit){
-                this.props.dispatch(this.props.actions.put.fetchAction(this.props.match.params.id, data))
+            if(this.props.method==='put'){
+                this.props.dispatch(this.props.actions.put.action(this.props.match.params.id, data))
             } else {
-                this.props.dispatch(this.props.actions.post.fetchAction(data))
+                this.props.dispatch(this.props.actions.post.action(data))
             }
         } else {
             console.log('form is not valid', data)
@@ -33,13 +36,26 @@ class Form extends Component{
         //ref, name, label, type
         var data = null
         console.log('props', this.props)
-        if(this.props.edit){
+        if(this.props.method==='put'){
             const user = localStorage.getItem('/users/' + this.props.match.params.id)
             if(user){
                 data = JSON.parse(user)
             }
         }
-        const fields = config.fields.map(field => <div><TextField min={field.min} max={field.max} value={data ? data[field.name]: ""} options={field.options} ref={field.name} name={field.name} label={field.label} type={field.type} isRequired={field.isRequired} /></div>)
+        const fields = config.fields.map((field) => {
+            if(field.methods.indexOf(this.props.method) != -1){
+                return (<div><TextField
+                        min={field.min}
+                        max={field.max}
+                        value={data ? data[field.name]: ""}
+                        options={field.options}
+                        ref={field.name}
+                        name={field.name}
+                        label={field.label}
+                        type={field.type}
+                        isRequired={field.isRequired} /></div>)
+            }
+        })
         return(
             <form onSubmit={this.handleSubmit} noValidate>
                 {fields}
@@ -47,6 +63,14 @@ class Form extends Component{
             </form>
         )
     }
+}
+
+Form.propTypes = {
+    method: PropTypes.string
+}
+
+Form.defaultProps = {
+    method: 'post'
 }
 
 export default connect()(Form)
