@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import TextField from '../TextField'
 import { connect } from 'react-redux'
-import { showModal, clearPutStatus } from '../../../actions'
+import { showModal, clearPutStatus, clearPostStatus } from '../../../actions'
 import { saveUser, getUser } from '../../../utils'
 
 class Form extends Component{
@@ -74,6 +74,7 @@ class Form extends Component{
             } else
             if(method === 'post'){
                 history.push('/')
+                dispatch(clearPostStatus())
             }
         }
         //ref, name, label, type
@@ -118,7 +119,6 @@ Form.defaultProps = {
 }
 
 const mapStateToProps = (state, props) =>{
-    console.log(props.name, props.method, 'props')
     return {
         status: state[props.name][props.method].status,
         response: state[props.name][props.method].response

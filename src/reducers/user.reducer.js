@@ -14,7 +14,8 @@ import {
     USERS_UPDATED,
     DELETE_USER_CLEAR_STATUS,
     PUT_USER_CLEAR_STATUS,
-    ADD_USER_SUCCESS
+    ADD_USER_SUCCESS,
+    POST_USER_CLEAR_STATUS
 } from '../actions'
 
 function user(state={items:[], isFetching: false, post: {status: 0, isFetching: false}, put: {status: 0, isFetching: false}, delete: {
@@ -111,6 +112,12 @@ function user(state={items:[], isFetching: false, post: {status: 0, isFetching: 
         case PUT_USER_CLEAR_STATUS:
             return Object.assign({}, state, {
                 put: {
+                    status: action.status
+                }
+            })
+        case POST_USER_CLEAR_STATUS:
+            return Object.assign({}, state, {
+                post: {
                     status: action.status
                 }
             })

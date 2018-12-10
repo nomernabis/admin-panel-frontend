@@ -161,6 +161,12 @@ export const clearPutStatus = () => ({
     status: 0
 })
 
+export const POST_USER_CLEAR_STATUS = 'POST_USER_CLEAR_STATUS'
+export const clearPostStatus = () => ({
+    type: POST_USER_CLEAR_STATUS,
+    status: 0
+})
+
 export const fetchDeleteUser = id => dispatch => {
     dispatch(deleteUserRequest())
     return delete_(USERS, id)

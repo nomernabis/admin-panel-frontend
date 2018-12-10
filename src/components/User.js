@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchDeleteUser } from '../actions'
+import { maskPhone } from '../utils'
 
 class User extends Component{
     constructor(props){
@@ -20,7 +21,6 @@ class User extends Component{
         this.props.showModal('question', 'Do you want to delete user ' + this.props.user.username + '?', this.confirmAction)
     }
     confirmAction(){
-        console.log('confirmAction clicked', this.props)
         const { dispatch, user} = this.props
         dispatch(fetchDeleteUser(user.id))
     }
@@ -34,7 +34,7 @@ class User extends Component{
                 <div>{first_name}</div>
                 <div>{last_name}</div>
                 <div>{email}</div>
-                <div>{phone_number}</div>
+                <div>{maskPhone(phone_number)}</div>
                 <div>{userTypes[user_type]}</div>
                 <div>
                     <button onClick={this.handleEditClick}>Edit</button>
