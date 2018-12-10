@@ -21,7 +21,7 @@ class App extends Component{
                     <BrowserRouter>
                         <Switch>
                             <Route path="/login" component={Login} />
-                            <ProtectedRoute path="/users/add" component={UserFormPage} />
+                            <ProtectedRoute path="/users/add" component={(props) => <UserFormPage {...props} method='post' />} />
                             <ProtectedRoute path="/users/edit/:id" component={(props) => <UserFormPage {...props} method='put' />} />
                             <ProtectedRoute path="/" component={Home} />
                         </Switch>

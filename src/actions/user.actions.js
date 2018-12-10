@@ -59,7 +59,7 @@ export const fetchUsers = () => dispatch => {
 }
 
 export const ADD_USER_REQUEST = 'ADD_USER_REQUEST'
-export const addUserRequest = ({
+export const addUserRequest = () => ({
     type: ADD_USER_REQUEST,
     isFetching: true
 })
@@ -68,7 +68,8 @@ export const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS'
 export const addUserSuccess = (response) => ({
     type: ADD_USER_SUCCESS,
     isFetching: false,
-    response
+    response,
+    status: 1
 })
 
 export const ADD_USER_ERROR = 'ADD_USER_ERROR'
@@ -78,6 +79,7 @@ export const addUserError = ({
 })
 //username, password, first_name, last_name, email, phone_number, user_type
 export const fetchAddUser = (data) => dispatch => {
+    dispatch(addUserRequest())
     return post('http://localhost:8000/users/', data)
     .then(response => response.json())
     .then(data => {

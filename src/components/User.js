@@ -26,6 +26,8 @@ class User extends Component{
     }
     render(){
         const {username, first_name, last_name, email, phone_number, user_type} = this.props.user
+        const userTypes={1:'Operator', 2:'Owner', 3:'Admin'}
+
         return (
             <div className="table-row">
                 <div>{username}</div>
@@ -33,7 +35,7 @@ class User extends Component{
                 <div>{last_name}</div>
                 <div>{email}</div>
                 <div>{phone_number}</div>
-                <div>{user_type}</div>
+                <div>{userTypes[user_type]}</div>
                 <div>
                     <button onClick={this.handleEditClick}>Edit</button>
                     <button onClick={this.handleDeleteClick}>Delete</button>

@@ -64,13 +64,17 @@ class Form extends Component{
         }
     }
     render(){
-        const { config } = this.props
-        const { dispatch, status, response } = this.props
+        const { dispatch, status, response, history, method, config } = this.props
         if(status == 1){
-            dispatch(showModal('info', 'Data changed successfully!', null))
-            saveUser(response)
-            dispatch(clearPutStatus())
-            this.setState({changed: false, fields: {}})
+            if(method === 'put'){
+                dispatch(showModal('info', 'Data changed successfully!', null))
+                saveUser(response)
+                dispatch(clearPutStatus())
+                this.setState({changed: false, fields: {}})
+            } else
+            if(method === 'post'){
+                history.push('/')
+            }
         }
         //ref, name, label, type
         var data = null
@@ -114,6 +118,7 @@ Form.defaultProps = {
 }
 
 const mapStateToProps = (state, props) =>{
+    console.log(props.name, props.method, 'props')
     return {
         status: state[props.name][props.method].status,
         response: state[props.name][props.method].response

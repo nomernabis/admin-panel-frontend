@@ -13,7 +13,8 @@ import {
     DELETE_USER_ERROR,
     USERS_UPDATED,
     DELETE_USER_CLEAR_STATUS,
-    PUT_USER_CLEAR_STATUS
+    PUT_USER_CLEAR_STATUS,
+    ADD_USER_SUCCESS
 } from '../actions'
 
 function user(state={items:[], isFetching: false, post: {status: 0, isFetching: false}, put: {status: 0, isFetching: false}, delete: {
@@ -21,6 +22,13 @@ function user(state={items:[], isFetching: false, post: {status: 0, isFetching: 
     status: 0
 }, shouldUpdateUsers: false}, action){
     switch(action.type){
+        case ADD_USER_SUCCESS:
+            return Object.assign({}, state, {
+                post: {
+                    isFetching: action.isFetching,
+                    status: action.status,
+                }
+            })
         case USER_REQUEST:
             return Object.assign({}, state, {
                 isFetching: action.isFetching
