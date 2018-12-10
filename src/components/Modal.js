@@ -22,15 +22,31 @@ class Modal extends Component{
             this.props.dispatch(deleteUserClearStatus())
             this.props.dispatch(fetchUsers())
         }
-        console.log('confirmAction', this.props)
-        return(
-            <div className={modalClass}>
-                <div className="modal flex flex-col flex-center">
-                    Are you sure you want to delete?
-                    <div className="m-t-16">
-                        <button onClick={() => this.props.confirmAction()} className="m-r-8">Yes</button>
-                        <button onClick={() => this.props.dispatch(hideModal())}>No</button>
+        var buttons = null
+        switch (this.props.type) {
+            case 'question':
+                buttons = (<div className="m-t-16">
+                    <button onClick={() => this.props.confirmAction()} className="m-r-8">Yes</button>
+                    <button onClick={() => this.props.dispatch(hideModal())}>No</button>
+                </div>)
+                break;
+            case 'info':
+                buttons = (
+                    <div>
+                        <button onClick={() => this.props.dispatch(hideModal())}>OK</button>
                     </div>
+                )
+                break
+            default:
+                break
+        }
+        return(
+            <div onClick={(e) => {
+                this.props.dispatch(hideModal())
+            }} className={modalClass}>
+                <div onClick={(event) => event.stopPropagation()} className="modal flex flex-col flex-center">
+                    {this.props.text}
+                    {buttons}
                 </div>
             </div>
         )
@@ -38,10 +54,12 @@ class Modal extends Component{
 }
 
 const mapStateToProps = (state) => ({
-    isFetching: state.user.deleteUser.isFetching,
+    isFetching: state.user.delete.isFetching,
     confirmAction: state.modal.confirmAction,
     visible: state.modal.visible,
-    status: state.user.deleteUser.status
+    status: state.user.delete.status,
+    type: state.modal.modalType,
+    text: state.modal.text
 })
 
 export default connect(mapStateToProps, null)(Modal)

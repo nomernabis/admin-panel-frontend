@@ -5,14 +5,18 @@ import {
     USERS_REQUEST,
     USERS_SUCCESS,
     USERS_ERROR,
+    EDIT_USER_REQUEST,
+    EDIT_USER_SUCCESS,
+    EDIT_USER_ERROR,
     DELETE_USER_REQUEST,
     DELETE_USER_SUCCESS,
     DELETE_USER_ERROR,
     USERS_UPDATED,
-    DELETE_USER_CLEAR_STATUS
+    DELETE_USER_CLEAR_STATUS,
+    PUT_USER_CLEAR_STATUS
 } from '../actions'
 
-function user(state={items:[], isFetching: false, deleteUser: {
+function user(state={items:[], isFetching: false, post: {status: 0, isFetching: false}, put: {status: 0, isFetching: false}, delete: {
     isFetching: false,
     status: 0
 }, shouldUpdateUsers: false}, action){
@@ -48,13 +52,13 @@ function user(state={items:[], isFetching: false, deleteUser: {
             })
         case DELETE_USER_REQUEST:
             return Object.assign({}, state, {
-                deleteUser: {
+                delete: {
                     isFetching: action.isFetching
                 }
             })
         case DELETE_USER_SUCCESS:
             return Object.assign({}, state, {
-                deleteUser: {
+                delete: {
                     isFetching: false,
                     status: action.status
                 },
@@ -62,14 +66,43 @@ function user(state={items:[], isFetching: false, deleteUser: {
             })
         case DELETE_USER_ERROR:
             return Object.assign({}, state, {
-                deleteUser: {
+                delete: {
                     isFetching: false,
                     status: action.status
                 }
             })
         case DELETE_USER_CLEAR_STATUS:
             return Object.assign({}, state, {
-                deleteUser: {
+                delete: {
+                    status: action.status
+                }
+            })
+        case EDIT_USER_REQUEST:
+            return Object.assign({}, state, {
+                put: {
+                    isFetching: action.isFetching,
+                    status: action.status
+                }
+            })
+        case EDIT_USER_SUCCESS:
+            return Object.assign({}, state, {
+                put: {
+                    isFetching: false,
+                    status: action.status,
+                    response: action.response
+                }
+            })
+        case EDIT_USER_ERROR:
+            return Object.assign({}, state, {
+                put: {
+                    isFetching: false,
+                    status: action.status,
+                    error: action.error
+                }
+            })
+        case PUT_USER_CLEAR_STATUS:
+            return Object.assign({}, state, {
+                put: {
                     status: action.status
                 }
             })

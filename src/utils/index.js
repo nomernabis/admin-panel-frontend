@@ -84,9 +84,9 @@ export const get = (url, isAuthorized=false) => {
 }
 
 export const USERS = 'http://localhost:8000/users/'
-export const put = (url, data) => {
+export const patch = (url, data) => {
     return fetch(url, {
-        method: "PUT",
+        method: "PATCH",
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json",
@@ -103,4 +103,12 @@ export const delete_ = (url, id) => {
             "Authorization": "Token " + localStorage.getItem("token"),
         },
     })
+}
+
+export const saveUser = (user) => {
+    localStorage.setItem('/users/' + user.id, JSON.stringify(user))
+}
+
+export const getUser = (id) => {
+    return localStorage.getItem('/users/' + id)
 }

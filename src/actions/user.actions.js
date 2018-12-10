@@ -1,4 +1,4 @@
-import { get, post, put, delete_, USERS } from '../utils'
+import { get, post, patch, delete_, USERS } from '../utils'
 
 export const USER_REQUEST = 'USER_REQUEST'
 export const userRequest = ({
@@ -88,25 +88,29 @@ export const fetchAddUser = (data) => dispatch => {
 export const EDIT_USER_REQUEST = 'EDIT_USER_REQUEST'
 export const editUserRequest = () => ({
     type: EDIT_USER_REQUEST,
-    isFetching: true
+    isFetching: true,
+    status: 0
 })
 
 export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS'
 export const editUserSuccess = (response) => ({
     type: EDIT_USER_SUCCESS,
     isFetching: false,
-    response
+    response,
+    status: 1
 })
 
 export const EDIT_USER_ERROR = 'EDIT_USER_ERROR'
 export const editUserError = (error) => ({
     type: EDIT_USER_ERROR,
     isFetching: false,
-    error
+    error,
+    status: 2
 })
 
 export const fetchEditUser = (id, data) => dispatch => {
-    return put(USERS + id + '/', data)
+    dispatch(editUserRequest())
+    return patch(USERS + id + '/', data)
     .then(response => response.json().then(json => ({status: response.status, data: json})))
     .then(response => {
         if(response.status){
@@ -146,6 +150,12 @@ export const usersUpdated = () => ({
 export const DELETE_USER_CLEAR_STATUS = 'DELETE_USER_CLEAR_STATUS'
 export const deleteUserClearStatus = () => ({
     type: DELETE_USER_CLEAR_STATUS,
+    status: 0
+})
+
+export const PUT_USER_CLEAR_STATUS = 'PUT_USER_CLEAR_STATUS'
+export const clearPutStatus = () => ({
+    type: PUT_USER_CLEAR_STATUS,
     status: 0
 })
 

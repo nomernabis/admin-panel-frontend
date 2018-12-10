@@ -17,7 +17,7 @@ class User extends Component{
         history.push('/users/edit/' + user.id)
     }
     handleDeleteClick(e){
-        this.props.showModal(this.confirmAction)
+        this.props.showModal('question', 'Do you want to delete user ' + this.props.user.username + '?', this.confirmAction)
     }
     confirmAction(){
         console.log('confirmAction clicked', this.props)

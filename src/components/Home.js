@@ -19,7 +19,7 @@ class Home extends Component{
                 <div>Loading...</div>
             )
         }
-        const users = this.props.users.map(user => <User key={user.id} user={user} showModal={(confirmAction) => this.props.showModal(confirmAction)} hideModal={() => this.props.hideModal} />)
+        const users = this.props.users.map(user => <User key={user.id} user={user} showModal={this.props.showModal} hideModal={this.props.hideModal} />)
         return(
             <div className="flex flex-center-horizontal">
                 <div className="table">
@@ -51,7 +51,6 @@ class Home extends Component{
                         <button onClick={() => this.props.history.push('/users/add')}>Add</button>
                     </div>
                 </div>
-                <Modal />
             </div>
         )
     }
@@ -63,7 +62,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    showModal: (confirmAction) => dispatch(showModal(confirmAction)),
+    showModal: (type, text, confirmAction) => dispatch(showModal(type, text, confirmAction)),
     hideModal: () => dispatch(hideModal()),
     getUsers: () => dispatch(fetchUsers())
 })

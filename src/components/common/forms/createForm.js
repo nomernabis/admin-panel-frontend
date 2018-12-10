@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import Form from './Form'
 
-function createForm(config, actions){
+function createForm(config, actions, name){
     return class extends Component{
             constructor(props){
                 super(props)
@@ -13,6 +13,7 @@ function createForm(config, actions){
                 <Form
                     config={config}
                     actions={actions}
+                    name={name}
                     {...this.props}
                  />
             )

@@ -7,6 +7,7 @@ import Login from './Login'
 import Home from './Home'
 import ProtectedRoute from './common/ProtectedRoute'
 import UserFormPage from './UserFormPage'
+import Modal from './Modal'
 
 import "../styles/App.css"
 
@@ -16,14 +17,17 @@ class App extends Component{
     render() {
         return (
             <Provider store={store}>
-                <BrowserRouter>
-                    <Switch>
-                        <Route path="/login" component={Login} />
-                        <ProtectedRoute path="/users/add" component={UserFormPage} />
-                        <ProtectedRoute path="/users/edit/:id" component={(props) => <UserFormPage {...props} method='put' />} />
-                        <ProtectedRoute path="/" component={Home} />
-                    </Switch>
-                </BrowserRouter>
+                <div>
+                    <BrowserRouter>
+                        <Switch>
+                            <Route path="/login" component={Login} />
+                            <ProtectedRoute path="/users/add" component={UserFormPage} />
+                            <ProtectedRoute path="/users/edit/:id" component={(props) => <UserFormPage {...props} method='put' />} />
+                            <ProtectedRoute path="/" component={Home} />
+                        </Switch>
+                    </BrowserRouter>
+                    <Modal />
+                </div>
             </Provider>
         )
     }

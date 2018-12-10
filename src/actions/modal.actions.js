@@ -1,8 +1,10 @@
 export const SHOW_MODAL = 'SHOW_MODAL'
-export const showModal = (confirmAction) => ({
+export const showModal = (modalType, text, confirmAction) => ({
     type: SHOW_MODAL,
     visible: true,
-    confirmAction
+    confirmAction,
+    modalType,
+    text
 })
 
 export const HIDE_MODAL = 'HIDE_MODAL'

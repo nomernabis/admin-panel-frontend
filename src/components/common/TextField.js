@@ -14,7 +14,8 @@ class TextField extends Component{
         }
         this.state = {
             error: null,
-            value: value
+            value: value,
+            changed: false
         }
         console.log('constructor', this.props)
         this.validate = this.validate.bind(this)
@@ -58,7 +59,9 @@ class TextField extends Component{
                 return
             }
         }
-        this.setState({value: e.target.value})
+        this.setState({value: e.target.value}, () => {
+                this.props.fieldChanged(this.props.name, this.isChanged())
+        })
     }
     getValue(){
         if(this.props.type === "phone"){
@@ -72,7 +75,10 @@ class TextField extends Component{
     getError(){
         return this.state.error
     }
-
+    isChanged(){
+        console.log(this.props.value, this.getValue(), 'isChanged')
+        return this.props.value != this.getValue()
+    }
     validate(){
         const { min, max, isRequired, name, type } = this.props
         const { value } = this.state
@@ -97,16 +103,12 @@ class TextField extends Component{
                 error = "Phone is not valid"
             }
         }
-        if(type === 'select'){
-            console.log('xxx', error)
-        }
         this.setState({ error })
         return error == null
     }
     render(){
        const { name, label, type} = this.props
        const { value, error } = this.state
-       console.log('val', value)
        if(type === 'select'){
            const options = this.props.options.map(o => <option value={o.value}>{o.name}</option>)
            return (
