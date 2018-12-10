@@ -42,24 +42,23 @@ html, body{
 }
 .table-row > div {
     display: table-cell;
-    padding: 3px 10px;
-    border:  1px solid black;
+    padding: 6px 10px;
+    border:  1px solid rgb(0, 0, 0, 0.12);
     border-top: 0;
     border-left: 0;
 }
 .table-header{
     display: table-header-group;
-    background-color: #ddd;
 }
 .table-header > div {
     display: table-cell;
     padding: 3px 10px;
-    border:  1px solid black;
+    border:  1px solid rgb(0, 0, 0, 0.12);
     border-left: 0;
 }
 .table-header > :first-child, .table-row > :first-child{
     border-left: 1px;
-    border-left-color: black;
+    border-left-color: rgb(0, 0, 0, 0.12);
     border-left-style: solid;
 }
 .table-button{
@@ -79,4 +78,19 @@ html, body{
 }
 .display-none{
     display: none;
+}
+.material-header{
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(0, 0, 0, 0.6)
+}
+.material-text{
+    font-size: 16px;
+    color: rgb(0, 0, 0, 0.87)
+}
+.text-button{
+    border: none;
+    background: inherit;
+    cursor: pointer;
+    padding: 3px 10px;
 }

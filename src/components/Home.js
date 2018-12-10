@@ -23,7 +23,7 @@ class Home extends Component{
         return(
             <div className="flex flex-center-horizontal">
                 <div className="table">
-                    <div className="table-header">
+                    <div className="table-header material-header">
                         <div>
                             Username
                         </div>

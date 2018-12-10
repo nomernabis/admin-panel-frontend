@@ -29,7 +29,7 @@ class User extends Component{
         const userTypes={1:'Operator', 2:'Owner', 3:'Admin'}
 
         return (
-            <div className="table-row">
+            <div className="table-row material-text">
                 <div>{username}</div>
                 <div>{first_name}</div>
                 <div>{last_name}</div>
@@ -37,8 +37,8 @@ class User extends Component{
                 <div>{maskPhone(phone_number)}</div>
                 <div>{userTypes[user_type]}</div>
                 <div>
-                    <button onClick={this.handleEditClick}>Edit</button>
-                    <button onClick={this.handleDeleteClick}>Delete</button>
+                    <button className="text-button" onClick={this.handleEditClick}>Edit</button>
+                    <button className="text-button" onClick={this.handleDeleteClick}>Delete</button>
                 </div>
             </div>
         )
