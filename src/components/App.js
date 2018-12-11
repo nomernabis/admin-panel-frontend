@@ -18,14 +18,18 @@ class App extends Component{
         return (
             <Provider store={store}>
                 <div>
-                    <BrowserRouter>
-                        <Switch>
-                            <Route path="/login" component={Login} />
-                            <ProtectedRoute path="/users/add" component={(props) => <UserFormPage {...props} method='post' />} />
-                            <ProtectedRoute path="/users/edit/:id" component={(props) => <UserFormPage {...props} method='put' />} />
-                            <ProtectedRoute path="/" component={Home} />
-                        </Switch>
-                    </BrowserRouter>
+                    <div className="navbar">
+                    </div>
+                    <div className="content">
+                        <BrowserRouter>
+                            <Switch>
+                                <Route path="/login" component={Login} />
+                                <ProtectedRoute path="/users/add" component={(props) => <UserFormPage {...props} method='post' />} />
+                                <ProtectedRoute path="/users/edit/:id" component={(props) => <UserFormPage {...props} method='put' />} />
+                                <ProtectedRoute path="/" component={Home} />
+                            </Switch>
+                        </BrowserRouter>
+                    </div>
                     <Modal />
                 </div>
             </Provider>
