@@ -107,3 +107,9 @@ html, body{
 .content{
     margin-top: 60px;
 }
+.sideNav{
+    width: 250px;
+    background-color: red;
+    height: 100%;
+    position: fixed;
+}

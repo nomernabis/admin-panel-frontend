@@ -21,6 +21,9 @@ class App extends Component{
                     <div className="navbar">
                     </div>
                     <div className="content">
+                        <div className="sideNav">
+                            
+                        </div>
                         <BrowserRouter>
                             <Switch>
                                 <Route path="/login" component={Login} />
