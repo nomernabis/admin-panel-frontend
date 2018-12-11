@@ -104,12 +104,33 @@ html, body{
     background-color: #333;
     height: 60px;
 }
-.content{
+.main{
     margin-top: 60px;
 }
 .sideNav{
     width: 250px;
-    background-color: red;
     height: 100%;
     position: fixed;
+    border-right: 1px solid rgb(0, 0, 0, 0.12);
+}
+.content{
+    margin-left: 250px;
+}
+.nav-item{
+    height: 42px;
+    cursor: pointer;
+    transition: color .2s ease;
+}
+.nav-item:hover{
+    color: #0db69d;
+}
+.text-center{
+    text-align: center;
+}
+.nav-item > div{
+    text-align: left;
+    width: 50%;
+}
+.active-item{
+    color: red;
 }
