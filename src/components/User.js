@@ -37,8 +37,8 @@ class User extends Component{
                 <div>{maskPhone(phone_number)}</div>
                 <div>{userTypes[user_type]}</div>
                 <div>
-                    <button className="text-button" onClick={this.handleEditClick}>Edit</button>
-                    <button className="text-button" onClick={this.handleDeleteClick}>Delete</button>
+                    <button className="text-button beautiful-green" onClick={this.handleEditClick}>Edit</button>
+                    <button className="text-button beautiful-green" onClick={this.handleDeleteClick}>Delete</button>
                 </div>
             </div>
         )

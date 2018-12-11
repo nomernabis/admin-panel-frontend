@@ -62,7 +62,7 @@ html, body{
     border-left-style: solid;
 }
 .table-button{
-    margin-top: 16px;
+    margin-top: 10px;
 }
 .m-t-16{
     margin-top: 16px;
@@ -93,4 +93,7 @@ html, body{
     background: inherit;
     cursor: pointer;
     padding: 3px 10px;
+}
+.beautiful-green{
+    color: #0db69d;
 }

@@ -48,7 +48,7 @@ class Home extends Component{
                     </div>
                     {users}
                     <div className="table-button">
-                        <button onClick={() => this.props.history.push('/users/add')}>Add</button>
+                        <button className="text-button beautiful-green" onClick={() => this.props.history.push('/users/add')}>Add</button>
                     </div>
                 </div>
             </div>
